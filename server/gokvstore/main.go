@@ -2,15 +2,22 @@ package main
 
 import (
 	"fmt"
-	"log"
 	"net/http"
 )
 
-func handler(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprintf(w, "200 ok")
+func getKey(w http.ResponseWriter, req *http.Request) {
+	idString := req.PathValue("id")
+	fmt.Fprint(w, "Got ID ", idString)
+}
+
+func postKey(w http.ResponseWriter, req *http.Request) {
+	// idString := req.PathValue("id") todo: add mechanism to extract data from post req and put in memory
+	fmt.Fprint(w, "200 ok")
 }
 
 func main() {
-	http.HandleFunc("/", handler)
-	log.Fatal(http.ListenAndServe(":8080", nil))
+	mux := http.NewServeMux()
+	mux.HandleFunc("GET /key/{id}", getKey)
+	mux.HandleFunc("POST /writekey/{id}", postKey)
+	http.ListenAndServe("localhost:8080", mux)
 }
