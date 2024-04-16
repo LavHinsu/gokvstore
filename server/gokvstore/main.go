@@ -3,10 +3,13 @@ package main
 import (
 	"fmt"
 	"net/http"
+
+	"github.com/LavHinsu/gokvstore/keystore"
 )
 
 func getKey(w http.ResponseWriter, req *http.Request) {
 	idString := req.PathValue("id")
+	keystore.Keystore()
 	fmt.Fprint(w, "Got ID ", idString)
 }
 
