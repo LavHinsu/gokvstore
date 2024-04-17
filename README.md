@@ -1,5 +1,5 @@
 # gokvstore
- A in memory key value store written in go, with no external imports
+ An in memory key value store written in go, with no external imports
 
 ### why build this? 
 i wrote this to learn go
