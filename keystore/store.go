@@ -1,7 +1,6 @@
 package keystore
 
 import (
-	"fmt"
 	"log"
 )
 
@@ -15,16 +14,23 @@ func init() {
 }
 
 func Getkey(key string) string {
-	log.Print("getting key", key)
+	log.Println("get key: ", key)
 	value, ok := keyStoreMap[key]
 	if ok {
 		return value
 	} else {
-		log.Printf("key not found")
-		return "key not found"
+		log.Println("key: " + key + ", not found")
+		return "404"
 	}
 }
 
-func Addkey() {
-	fmt.Println("Inside addkey")
+func Addkey(Keyname string, Value string) int {
+	if _, isKeyExists := keyStoreMap[Keyname]; isKeyExists {
+		log.Println("key already exists: " + Keyname)
+		return 409
+	} else {
+		keyStoreMap[Keyname] = Value
+		log.Println("add key: ", Keyname)
+		return 200
+	}
 }
