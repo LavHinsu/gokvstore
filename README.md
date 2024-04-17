@@ -1,3 +1,4 @@
+[![Go](https://github.com/LavHinsu/gokvstore/actions/workflows/go.yml/badge.svg)](https://github.com/LavHinsu/gokvstore/actions/workflows/go.yml)
 # gokvstore
  An in memory key value store written in go, with no external imports
 
