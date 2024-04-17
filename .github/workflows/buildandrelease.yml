@@ -57,5 +57,5 @@ jobs:
         with:
           upload_url: ${{ steps.create-new-release.outputs.upload_url }}
           asset_path: gokvstore
-          asset_name: release-v${{ github.run_number }}.zip
+          asset_name: gokvstore
           asset_content_type: application
