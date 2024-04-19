@@ -3,7 +3,7 @@
  An in memory key value store written in go, with no external imports
 
 ### why build this? 
-i wrote this to learn go
+i like golang, and this seemed like a cool project. it is maintained, if you create a issue i will look at it. 
 
 ### build
  to build this program, in the program directory run,
@@ -19,6 +19,10 @@ i wrote this to learn go
     "Keyname" : "Thisisakey",
     "Value": "Thisisavalue"
  }
+
+### development setup
+ - main branch is where development takes place
+ - release branch build will create a release through github actions.
 
 ### todo
  - Add capability to update keys
