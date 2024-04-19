@@ -8,6 +8,7 @@ import (
 )
 
 func healthCheck(w http.ResponseWriter, req *http.Request) {
+	w.WriteHeader(http.StatusOK)
 	fmt.Fprint(w, "200 ok")
 }
 
