@@ -7,11 +7,13 @@ import (
 	"log"
 	"net/http"
 
+	"github.com/LavHinsu/gokvstore/helpers"
 	"github.com/LavHinsu/gokvstore/keystore"
 )
 
 // this function is used to update a key in our map/kvstore
 func UpdateKeyController(w http.ResponseWriter, req *http.Request) {
+	ipaddr := helpers.ReadUserIP(req)
 	body, err := io.ReadAll(req.Body)
 	if err != nil {
 		log.Printf("Error reading body: %v", err)
@@ -25,7 +27,7 @@ func UpdateKeyController(w http.ResponseWriter, req *http.Request) {
 			http.Error(w, "bad request, couldn't parse json", http.StatusBadRequest)
 			return // exit the function here if json parsing couldn't be completed
 		}
-		status := keystore.UpdateKey(kvpair.Keyname, kvpair.Value)
+		status := keystore.UpdateKey(kvpair.Keyname, kvpair.Value, ipaddr)
 
 		if status == 200 {
 			w.WriteHeader(http.StatusOK)

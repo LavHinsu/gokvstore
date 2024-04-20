@@ -4,13 +4,15 @@ import (
 	"fmt"
 	"net/http"
 
+	"github.com/LavHinsu/gokvstore/helpers"
 	"github.com/LavHinsu/gokvstore/keystore"
 )
 
 // this function is used to get a key from our map/kvstore
 func GetKeyController(w http.ResponseWriter, req *http.Request) {
+	ipaddr := helpers.ReadUserIP(req)
 	key := req.PathValue("key")
-	value := keystore.Getkey(key)
+	value := keystore.Getkey(key, ipaddr)
 	if value != "404" {
 		w.WriteHeader(http.StatusOK)
 		fmt.Fprint(w, value)
