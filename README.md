@@ -23,7 +23,7 @@ i like golang, and this seemed like a cool project. it is maintained, if you cre
 
 ### development setup
  - main branch is where development takes place
- - release branch build will create a release through github actions.
+ - release action will create a release through github actions, although i've set it up as a manual trigger to not spam release whenever i push code.
 
 ### todo
  - Add capability to set keys to expire
