@@ -11,10 +11,11 @@ i like golang, and this seemed like a cool project. it is maintained, if you cre
  this will build a executable in your directory
 
 ### usage instructions
- there are three enpoints, described in the server/server.go file.
- - GET /healthcheck (this is a probe to see if the server is running)
- - GET /key/{key} (where you replace your key to the value in brackets, ie GET /key/thisisatestkey)
- - POST /writekey (the body should be as below, sent as raw json)\
+ there are three enpoints, which are present in the server/server.go file.
+ - GET /healthcheck ( this is a probe to see if the server is running )
+ - GET /key/{key} ( where you replace your key to the value in brackets, ie GET /key/thisisatestkey )
+ - POST /writekey ( create a key. json body for both writekey and updatekey is describe below)
+ - PATCH /updatekey ( update a key. )
  {
     "Keyname" : "Thisisakey",
     "Value": "Thisisavalue"
@@ -25,6 +26,5 @@ i like golang, and this seemed like a cool project. it is maintained, if you cre
  - release branch build will create a release through github actions.
 
 ### todo
- - Add capability to update keys
  - Add capability to set keys to expire
  - Write tests

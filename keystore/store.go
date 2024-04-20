@@ -14,7 +14,7 @@ func init() {
 }
 
 func Getkey(key string) string {
-	log.Println("get key: ", key)
+	log.Println("get key:", key)
 	value, ok := keyStoreMap[key]
 	if ok {
 		return value
@@ -25,12 +25,25 @@ func Getkey(key string) string {
 }
 
 func Addkey(Keyname string, Value string) int {
-	if _, isKeyExists := keyStoreMap[Keyname]; isKeyExists {
-		log.Println("key already exists: " + Keyname)
+	_, KeyExists := keyStoreMap[Keyname]
+	if KeyExists {
+		log.Println("key already exists:" + Keyname)
 		return 409
 	} else {
 		keyStoreMap[Keyname] = Value
-		log.Println("add key: ", Keyname)
+		log.Println("add key:", Keyname)
 		return 200
+	}
+}
+
+func UpdateKey(Keyname string, Value string) int {
+	_, KeyExists := keyStoreMap[Keyname]
+	if KeyExists {
+		keyStoreMap[Keyname] = Value
+		log.Println("update key:", Keyname, Value)
+		return 200
+	} else {
+		log.Println("couldn't find key in update key call:", Keyname)
+		return 404
 	}
 }

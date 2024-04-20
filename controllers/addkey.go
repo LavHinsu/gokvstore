@@ -2,6 +2,7 @@ package controllers
 
 import (
 	"encoding/json"
+	"fmt"
 	"io"
 	"log"
 	"net/http"
@@ -14,16 +15,7 @@ type key_struct struct {
 	Value   string
 }
 
-func GetKeyController(w http.ResponseWriter, req *http.Request) {
-	key := req.PathValue("key")
-	value := keystore.Getkey(key)
-	if value != "404" {
-		http.Error(w, value, http.StatusOK)
-	} else {
-		http.Error(w, "key not found", http.StatusNotFound)
-	}
-}
-
+// this function is used to add a key to our map/kvstore
 func PostKeyController(w http.ResponseWriter, req *http.Request) {
 	body, err := io.ReadAll(req.Body)
 	if err != nil {
@@ -34,13 +26,15 @@ func PostKeyController(w http.ResponseWriter, req *http.Request) {
 		var kvpair key_struct
 		err = json.Unmarshal(body, &kvpair)
 		if err != nil {
-			log.Println(err)
+			log.Println("couldn't parse request json, bad data")
+			http.Error(w, "bad request, couldn't parse json", http.StatusBadRequest)
+			return // exit the function here if json parsing couldn't be completed
 		}
-		// log.Print(string(body))
 		status := keystore.Addkey(kvpair.Keyname, kvpair.Value)
 
 		if status == 200 {
-			http.Error(w, "200 ok", http.StatusOK)
+			w.WriteHeader(http.StatusOK)
+			fmt.Fprint(w, "200 ok")
 		} else if status == 409 {
 			http.Error(w, "Key Already exists, key name : "+kvpair.Keyname, http.StatusConflict)
 		} else {
