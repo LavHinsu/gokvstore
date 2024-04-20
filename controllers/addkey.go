@@ -15,17 +15,6 @@ type key_struct struct {
 	Value   string
 }
 
-func GetKeyController(w http.ResponseWriter, req *http.Request) {
-	key := req.PathValue("key")
-	value := keystore.Getkey(key)
-	if value != "404" {
-		w.WriteHeader(http.StatusOK)
-		fmt.Fprint(w, value)
-	} else {
-		http.Error(w, "key not found", http.StatusNotFound)
-	}
-}
-
 func PostKeyController(w http.ResponseWriter, req *http.Request) {
 	body, err := io.ReadAll(req.Body)
 	if err != nil {
