@@ -26,7 +26,7 @@ func PostKeyController(w http.ResponseWriter, req *http.Request) {
 		var kvpair key_struct
 		err = json.Unmarshal(body, &kvpair)
 		if err != nil {
-			log.Println("couldn't parse request json, bad data")
+			log.Println(err, "couldn't parse request json, bad data")
 			http.Error(w, "bad request, couldn't parse json", http.StatusBadRequest)
 			return // exit the function here if json parsing couldn't be completed
 		}

@@ -31,7 +31,7 @@ func Addkey(Keyname string, Value string) int {
 		return 409
 	} else {
 		keyStoreMap[Keyname] = Value
-		log.Println("add key:", Keyname)
+		log.Println("added key:", Keyname)
 		return 200
 	}
 }
@@ -40,10 +40,21 @@ func UpdateKey(Keyname string, Value string) int {
 	_, KeyExists := keyStoreMap[Keyname]
 	if KeyExists {
 		keyStoreMap[Keyname] = Value
-		log.Println("update key:", Keyname, Value)
+		log.Println("updated key:", Keyname, Value)
 		return 200
 	} else {
 		log.Println("couldn't find key in update key call:", Keyname)
+		return 404
+	}
+}
+
+func DeleteKey(Keyname string) int {
+	_, KeyExists := keyStoreMap[Keyname]
+	if KeyExists {
+		delete(keyStoreMap, Keyname)
+		log.Println("deleted key:", Keyname)
+		return 200
+	} else {
 		return 404
 	}
 }

@@ -14,10 +14,11 @@ func healthCheck(w http.ResponseWriter, req *http.Request) {
 
 func Kvstoreserver() {
 	mux := http.NewServeMux()
-	mux.HandleFunc("GET /healthcheck", healthCheck)                     // healthcheck for a probe if this is run in kubernetes
-	mux.HandleFunc("GET /key/{key}", controllers.GetKeyController)      // get a key
-	mux.HandleFunc("POST /writekey", controllers.PostKeyController)     // add a key
-	mux.HandleFunc("PATCH /updatekey", controllers.UpdateKeyController) // update a key
+	mux.HandleFunc("GET /healthcheck", healthCheck)                            // healthcheck for a probe if this is run in kubernetes
+	mux.HandleFunc("GET /key/{key}", controllers.GetKeyController)             // get a key
+	mux.HandleFunc("POST /writekey", controllers.PostKeyController)            // add a key
+	mux.HandleFunc("PATCH /updatekey", controllers.UpdateKeyController)        // update a key
+	mux.HandleFunc("DELETE /deletekey/{key}", controllers.DeleteKeyController) // delete a key
 
 	http.ListenAndServe("localhost:8080", mux)
 }
