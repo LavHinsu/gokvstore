@@ -1,4 +1,4 @@
-[![Build](https://github.com/LavHinsu/gokvstore/actions/workflows/buildandrelease.yml/badge.svg)](https://github.com/LavHinsu/gokvstore/actions/workflows/buildandrelease.yml) [![Go Report Card](https://goreportcard.com/badge/github.com/LavHinsu/gokvstore)](https://goreportcard.com/report/github.com/LavHinsu/gokvstore)
+[![Build](https://github.com/LavHinsu/gokvstore/actions/workflows/buildandrelease.yml/badge.svg)](https://github.com/LavHinsu/gokvstore/actions/workflows/buildandrelease.yml) [![Release](https://github.com/LavHinsu/gokvstore/actions/workflows/release.yml/badge.svg)](https://github.com/LavHinsu/gokvstore/actions/workflows/release.yml) [![Go Report Card](https://goreportcard.com/badge/github.com/LavHinsu/gokvstore)](https://goreportcard.com/report/github.com/LavHinsu/gokvstore)
 # gokvstore
  An in memory key value store written in go, with no external imports
 
