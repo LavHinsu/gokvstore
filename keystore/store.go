@@ -8,11 +8,12 @@ var (
 	keyStoreMap = make(map[string]string)
 )
 
+// initialize our store with a value
 func init() {
 	keyStoreMap["foo"] = "bar"
-	keyStoreMap["good"] = "stuff"
 }
 
+// function used to get a key from our store
 func Getkey(key string, ipaddr string) string {
 	value, ok := keyStoreMap[key]
 	if ok {
@@ -24,6 +25,7 @@ func Getkey(key string, ipaddr string) string {
 	}
 }
 
+// function used to add a key to our store
 func Addkey(Keyname string, Value string, ipaddr string) int {
 	_, KeyExists := keyStoreMap[Keyname]
 	if KeyExists {
@@ -36,6 +38,7 @@ func Addkey(Keyname string, Value string, ipaddr string) int {
 	}
 }
 
+// function used to update a key in our store
 func UpdateKey(Keyname string, Value string, ipaddr string) int {
 	_, KeyExists := keyStoreMap[Keyname]
 	if KeyExists {
@@ -48,6 +51,7 @@ func UpdateKey(Keyname string, Value string, ipaddr string) int {
 	}
 }
 
+// function used to delete a key in our store
 func DeleteKey(Keyname string, ipaddr string) int {
 	_, KeyExists := keyStoreMap[Keyname]
 	if KeyExists {
@@ -58,4 +62,9 @@ func DeleteKey(Keyname string, ipaddr string) int {
 		log.Println(ipaddr+" couldn't find key to delete:", Keyname)
 		return 404
 	}
+}
+
+// returns the number of keys in the store
+func GetKeyCount() int {
+	return len(keyStoreMap)
 }
