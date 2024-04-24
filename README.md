@@ -25,6 +25,4 @@ i like golang, and this seemed like a cool project. it is maintained, if you cre
 
 ### todo
  - Add capability to set keys to expire
- - Add created_at automatically to all keys
- - Add capability to log ip of the requester
  - Write tests
