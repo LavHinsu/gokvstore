@@ -1,7 +1,14 @@
 package keystore
 
 import (
+	"sync"
 	"time"
+)
+
+var (
+	keyStore    = make(map[string]*keyStoreMap)
+	healthCheck = make(map[string]*HealthCheckStruct)
+	mutex       = &sync.RWMutex{}
 )
 
 // initialize our store with a value
