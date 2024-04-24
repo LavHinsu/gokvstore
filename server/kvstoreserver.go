@@ -1,6 +1,7 @@
 package kvstoreserver
 
 import (
+	"log"
 	"net/http"
 
 	"github.com/LavHinsu/gokvstore/controllers"
@@ -15,5 +16,8 @@ func Kvstoreserver() {
 	mux.HandleFunc("PATCH /updatekey", controllers.UpdateKeyController)        // update a key
 	mux.HandleFunc("DELETE /deletekey/{key}", controllers.DeleteKeyController) // delete a key
 
-	http.ListenAndServe("localhost:8080", mux)
+	err := http.ListenAndServe("localhost:8080", mux)
+	if err != nil {
+		log.Println("unable to start server,", err)
+	}
 }
