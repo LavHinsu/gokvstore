@@ -12,16 +12,16 @@ import (
 
 // this function is used to update a key in our map/kvstore
 func UpdateKeyController(w http.ResponseWriter, req *http.Request) {
-	ipaddr := helpers.ReadUserIP(req)
+	ipaddr := helpers.ReadUserIP(req) // extract ip address from the req
 	body, err := io.ReadAll(req.Body)
 	if err != nil {
 		log.Printf("Error reading body: %v", err)
-		http.Error(w, "can't read body", http.StatusBadRequest)
+		http.Error(w, "can't read body", http.StatusBadRequest) // if bad body is sent
 		return
 	} else {
 		var kvpair key_struct
 		err = json.Unmarshal(body, &kvpair)
-		if err != nil {
+		if err != nil { // if bad json is sent
 			log.Println("couldn't parse request json, bad data")
 			http.Error(w, "bad request, couldn't parse json", http.StatusBadRequest)
 			return // exit the function here if json parsing couldn't be completed

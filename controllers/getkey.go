@@ -11,7 +11,7 @@ import (
 
 // this function is used to get a key from our map/kvstore
 func GetKeyController(w http.ResponseWriter, req *http.Request) {
-	ipaddr := helpers.ReadUserIP(req)
+	ipaddr := helpers.ReadUserIP(req) // extract ip address from the req
 	key := req.PathValue("key")
 	value := keystore.Getkey(key, ipaddr)
 	if value != nil {

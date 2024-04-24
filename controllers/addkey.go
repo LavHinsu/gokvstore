@@ -17,14 +17,14 @@ type key_struct struct {
 
 // this function is used to add a key to our map/kvstore
 func PostKeyController(w http.ResponseWriter, req *http.Request) {
-	ipaddr := helpers.ReadUserIP(req)
+	ipaddr := helpers.ReadUserIP(req) // extract ip address from the req
 	body, err := io.ReadAll(req.Body)
 	if err != nil {
 		log.Printf("Error reading body: %v", err)
 		http.Error(w, "can't read body", http.StatusBadRequest)
 		return
 	} else {
-		var kvpair key_struct
+		var kvpair key_struct // extract values from the request
 		err = json.Unmarshal(body, &kvpair)
 		if err != nil {
 			log.Println(err, "couldn't parse request json, bad data")

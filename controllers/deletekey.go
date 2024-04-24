@@ -9,7 +9,7 @@ import (
 
 // this function is used to delete a key in our map/kvstore
 func DeleteKeyController(w http.ResponseWriter, req *http.Request) {
-	ipaddr := helpers.ReadUserIP(req)
+	ipaddr := helpers.ReadUserIP(req) // extract ip address from the req
 	key := req.PathValue("key")
 	value := keystore.DeleteKey(key, ipaddr)
 	if value != 404 {
