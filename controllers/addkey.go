@@ -2,7 +2,6 @@ package controllers
 
 import (
 	"encoding/json"
-	"fmt"
 	"io"
 	"log"
 	"net/http"
@@ -36,7 +35,8 @@ func PostKeyController(w http.ResponseWriter, req *http.Request) {
 
 		if status == 200 {
 			w.WriteHeader(http.StatusOK)
-			fmt.Fprint(w, "200 ok")
+			response := "200 ok"
+			w.Write([]byte(response))
 		} else if status == 409 {
 			http.Error(w, "Key Already exists, key name : "+kvpair.Keyname, http.StatusConflict)
 		} else {

@@ -1,7 +1,6 @@
 package controllers
 
 import (
-	"fmt"
 	"net/http"
 	"strconv"
 
@@ -12,5 +11,6 @@ import (
 func HealthCheck(w http.ResponseWriter, req *http.Request) {
 	keycount := keystore.GetKeyCount()
 	w.WriteHeader(http.StatusOK)
-	fmt.Fprint(w, "total keys: "+strconv.Itoa(keycount))
+	response := "total keys: " + strconv.Itoa(keycount)
+	w.Write([]byte(response))
 }

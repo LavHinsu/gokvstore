@@ -2,7 +2,6 @@ package controllers
 
 import (
 	"encoding/json"
-	"fmt"
 	"io"
 	"log"
 	"net/http"
@@ -31,7 +30,8 @@ func UpdateKeyController(w http.ResponseWriter, req *http.Request) {
 
 		if status == 200 {
 			w.WriteHeader(http.StatusOK)
-			fmt.Fprint(w, "200 ok")
+			response := "200 ok"
+			w.Write([]byte(response))
 		} else if status == 404 {
 			http.Error(w, "Key doesn't exist, key: "+kvpair.Keyname, http.StatusNotFound)
 		} else {

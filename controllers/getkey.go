@@ -1,7 +1,8 @@
 package controllers
 
 import (
-	"fmt"
+	"encoding/json"
+	"log"
 	"net/http"
 
 	"github.com/LavHinsu/gokvstore/helpers"
@@ -13,9 +14,15 @@ func GetKeyController(w http.ResponseWriter, req *http.Request) {
 	ipaddr := helpers.ReadUserIP(req)
 	key := req.PathValue("key")
 	value := keystore.Getkey(key, ipaddr)
-	if value != "404" {
-		w.WriteHeader(http.StatusOK)
-		fmt.Fprint(w, value)
+	if value != nil {
+		response, err := json.Marshal(value)
+		if err != nil {
+			log.Panic(err)
+		} else {
+			w.Header().Set("Content-Type", "application/json")
+			w.Write(response)
+		}
+
 	} else {
 		http.Error(w, "key not found", http.StatusNotFound)
 	}

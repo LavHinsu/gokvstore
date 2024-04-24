@@ -1,7 +1,6 @@
 package controllers
 
 import (
-	"fmt"
 	"net/http"
 
 	"github.com/LavHinsu/gokvstore/helpers"
@@ -15,7 +14,8 @@ func DeleteKeyController(w http.ResponseWriter, req *http.Request) {
 	value := keystore.DeleteKey(key, ipaddr)
 	if value != 404 {
 		w.WriteHeader(http.StatusOK)
-		fmt.Fprint(w, "200 ok")
+		response := "200 ok"
+		w.Write([]byte(response))
 	} else {
 		http.Error(w, "key not found", http.StatusNotFound)
 	}

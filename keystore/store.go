@@ -2,37 +2,52 @@ package keystore
 
 import (
 	"log"
+	"time"
 )
 
+type keyStoreMap struct {
+	Value string
+	C_AT  time.Time
+	U_AT  time.Time
+}
+
 var (
-	keyStoreMap = make(map[string]string)
+	keyStore = make(map[string]*keyStoreMap)
 )
 
 // initialize our store with a value
 func init() {
-	keyStoreMap["foo"] = "bar"
+	keyStore["foo"] = &keyStoreMap{
+		Value: "bar",            //initalize with a value
+		C_AT:  time.Now().UTC(), // intialize with an empty time object
+		U_AT:  time.Time{},      // intialize with an empty time object
+	}
 }
 
 // function used to get a key from our store
-func Getkey(key string, ipaddr string) string {
-	value, ok := keyStoreMap[key]
+func Getkey(key string, ipaddr string) *keyStoreMap {
+	value, ok := keyStore[key]
 	if ok {
 		log.Println(ipaddr + " get key: " + key)
 		return value
 	} else {
 		log.Println(ipaddr + " key not found: " + key)
-		return "404"
+		return nil
 	}
 }
 
 // function used to add a key to our store
 func Addkey(Keyname string, Value string, ipaddr string) int {
-	_, KeyExists := keyStoreMap[Keyname]
+	_, KeyExists := keyStore[Keyname]
 	if KeyExists {
 		log.Println(ipaddr + " key already exists: " + Keyname)
 		return 409
 	} else {
-		keyStoreMap[Keyname] = Value
+		keyStore[Keyname] = &keyStoreMap{
+			Value: Value,            //initalize with a value
+			C_AT:  time.Now().UTC(), // intialize with an empty time object
+			U_AT:  time.Time{},      // intialize with an empty time object
+		}
 		log.Println(ipaddr+" added key:", Keyname)
 		return 200
 	}
@@ -40,9 +55,10 @@ func Addkey(Keyname string, Value string, ipaddr string) int {
 
 // function used to update a key in our store
 func UpdateKey(Keyname string, Value string, ipaddr string) int {
-	_, KeyExists := keyStoreMap[Keyname]
+	_, KeyExists := keyStore[Keyname]
 	if KeyExists {
-		keyStoreMap[Keyname] = Value
+		keyStore[Keyname].Value = Value
+		keyStore[Keyname].U_AT = time.Now().UTC()
 		log.Println(ipaddr+" updated key:", Keyname)
 		return 200
 	} else {
@@ -53,9 +69,9 @@ func UpdateKey(Keyname string, Value string, ipaddr string) int {
 
 // function used to delete a key in our store
 func DeleteKey(Keyname string, ipaddr string) int {
-	_, KeyExists := keyStoreMap[Keyname]
+	_, KeyExists := keyStore[Keyname]
 	if KeyExists {
-		delete(keyStoreMap, Keyname)
+		delete(keyStore, Keyname)
 		log.Println(ipaddr+" deleted key:", Keyname)
 		return 200
 	} else {
@@ -66,5 +82,5 @@ func DeleteKey(Keyname string, ipaddr string) int {
 
 // returns the number of keys in the store
 func GetKeyCount() int {
-	return len(keyStoreMap)
+	return len(keyStore)
 }
