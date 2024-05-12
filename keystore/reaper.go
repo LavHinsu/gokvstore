@@ -43,7 +43,7 @@ func removeKeys(keys []string) {
 	defer mutex.Unlock()
 	mutex.Lock()
 	for _, key := range keys {
-		log.Println("reaper delete expired key", key)
+		log.Println("reaper delete expired key:", key)
 		/*
 			delete the key from our map. we don't need to worry about concurrent delete (ie, if someone sent a delete request)
 			because in golang a delete operation over a non-existant key is just a no-op.
