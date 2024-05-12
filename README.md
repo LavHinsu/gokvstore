@@ -28,7 +28,7 @@ i like golang, and this seemed like a cool project. it is maintained, if you cre
 ### keystore init
  - the keystore is init with a key named foo that will expire and be deleted in 10 seconds.
 
-### development setup
- - main branch is where development takes place
- - release action will create a release through github actions, although i've set it up as a manual trigger to not spam release whenever i push code.
+### development guide
+ - if you open a pull request, please do so on the main branch.
+ - release action will create a release through github actions on a manual trigger. (from the main branch)
 
