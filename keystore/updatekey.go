@@ -11,9 +11,15 @@ func UpdateKey(Keyname string, Value string, E_AT int64, ipaddr string) int {
 	defer mutex.Unlock()
 	_, KeyExists := keyStore[Keyname]
 	if KeyExists {
-		keyStore[Keyname].Value = Value
-		keyStore[Keyname].U_AT = time.Now().Unix()
-		keyStore[Keyname].E_AT = E_AT
+		if E_AT != 0 { // only update the E_AT value if one is sent
+			keyStore[Keyname].Value = Value
+			keyStore[Keyname].U_AT = time.Now().Unix()
+			keyStore[Keyname].E_AT = E_AT
+
+		} else {
+			keyStore[Keyname].Value = Value
+			keyStore[Keyname].U_AT = time.Now().Unix()
+		}
 		log.Println(ipaddr+" updated key:", Keyname)
 		return 200
 	} else {
