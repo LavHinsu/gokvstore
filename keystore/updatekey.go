@@ -5,7 +5,11 @@ import (
 	"time"
 )
 
-// function used to update a key in our store
+/*
+function used to update a key in our store
+returns a int. 200 if successfully, 404 if the key didn't exist
+Use the Addkey to add a key if it doesn't exist.
+*/
 func UpdateKey(Keyname string, Value string, E_AT int64, ipaddr string) int {
 	mutex.Lock()
 	defer mutex.Unlock()

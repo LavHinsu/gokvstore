@@ -17,16 +17,20 @@ func UpdateKeyController(w http.ResponseWriter, req *http.Request) {
 	if err != nil {
 		log.Printf("Error reading body: %v", err)
 		http.Error(w, "can't read body", http.StatusBadRequest) // if bad body is sent
-		return
+		return                                                  // do not continue if the values could not be extracted
 	} else {
 		var kvpair key_struct
+		// unmarshall the request. this can fail, so we return a error if it does.
 		err = json.Unmarshal(body, &kvpair)
 		if err != nil { // if bad json is sent
 			log.Println("couldn't parse request json, bad data")
 			http.Error(w, "bad request, couldn't parse json", http.StatusBadRequest)
 			return // exit the function here if json parsing couldn't be completed
 		}
+		// update our key. the status will say if it was successfull or not.
 		status := keystore.UpdateKey(kvpair.Keyname, kvpair.Value, kvpair.E_AT, ipaddr)
+
+		// check how the operation went and respond accordingly.
 		if status == 200 {
 			w.WriteHeader(http.StatusOK)
 			response := "200 ok"

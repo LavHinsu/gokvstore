@@ -13,6 +13,7 @@ import (
 func GetKeyController(w http.ResponseWriter, req *http.Request) {
 	ipaddr := helpers.ReadUserIP(req) // extract ip address from the req
 	key := req.PathValue("key")
+	// get our key
 	value := keystore.Getkey(key, ipaddr)
 	if value != nil {
 		response, err := json.Marshal(value)

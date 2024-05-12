@@ -55,8 +55,9 @@ func removeKeys(keys []string) {
 // this is our reaper function. it will run a goroutine that checks and deletes keys if present
 func Reaper() {
 	/*
-		set period to run our function. we can call it every second because the ticker will not let this run concurrently.
-		if it does, it would cause heavy RWMutex locks. fortunately for us, this is handled internally by golang.
+		set period to run our function. we can call it every second because the iterator in the for loop will not let this run concurrently.
+		this is because there is nothing listening on the channel when it is updated when the iterator is running
+		if there was one, it would cause heavy RWMutex locks. fortunately for us, this is handled internally by golang.
 	*/
 	ticker := time.NewTicker(1 * time.Second)
 

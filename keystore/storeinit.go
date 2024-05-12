@@ -11,7 +11,7 @@ var (
 	mutex       = &sync.RWMutex{}
 )
 
-// initialize our store with a value
+// initialize our store with a value (that expires)
 func init() {
 	mutex.Lock()
 	defer mutex.Unlock()

@@ -22,18 +22,22 @@ func PostKeyController(w http.ResponseWriter, req *http.Request) {
 	body, err := io.ReadAll(req.Body)
 	if err != nil {
 		log.Printf("Error reading body: %v", err)
-		http.Error(w, "can't read body", http.StatusBadRequest)
-		return
+		http.Error(w, "can't read body", http.StatusBadRequest) // return a badrequest response
+		return                                                  // do not continue if the values could not be extracted
 	} else {
 		var kvpair key_struct // extract values from the request
+
+		// unmarshall the request. this can fail, so we return a error if it does.
 		err = json.Unmarshal(body, &kvpair)
 		if err != nil {
 			log.Println(err, "couldn't parse request json, bad data")
 			http.Error(w, "bad request, couldn't parse json", http.StatusBadRequest)
 			return // exit the function here if json parsing couldn't be completed
 		}
+		// add our key. the status will say if it was successfull or not.
 		status := keystore.Addkey(kvpair.Keyname, kvpair.Value, kvpair.E_AT, ipaddr)
 
+		// check how the operation went and respond accordingly.
 		if status == 200 {
 			w.WriteHeader(http.StatusOK)
 			response := "200 ok"
