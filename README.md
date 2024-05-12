@@ -15,8 +15,8 @@ i like golang, and this seemed like a cool project. it is maintained, if you cre
  - GET /healthcheck ( this is a probe to see if the server is running )
  - GET /key/{key} ( where you replace your key to the value in brackets, ie GET /key/thisisatestkey )
  - POST /writekey ( create a key. json body for both writekey and updatekey is describe below)
- - { "Keyname" : "Thisisakey", "Value": "Thisisavalue" } 
- - PATCH /updatekey ( update a key. )
+ - { "Keyname" : "Thisisakey", "Value": "Thisisavalue", "E_AT": unixtimestamp(in int) } 
+ - PATCH /updatekey ( update a key. ) // the E_AT timestamp is optional, if it is not given, it will not be updated/added.
  - DELETE /deletekey/{key} ( delete a key. )
 
 ### development setup
