@@ -6,7 +6,7 @@ import (
 )
 
 // function used to add a key to our store
-func Addkey(Keyname string, Value string, ipaddr string) int {
+func Addkey(Keyname string, Value string, E_AT int64, ipaddr string) int {
 	mutex.Lock()
 	defer mutex.Unlock()
 	_, KeyExists := keyStore[Keyname]
@@ -17,6 +17,7 @@ func Addkey(Keyname string, Value string, ipaddr string) int {
 		keyStore[Keyname] = &keyStoreMap{
 			Value: Value,             //initalize with a value
 			C_AT:  time.Now().Unix(), // intialize with an empty time object
+			E_AT:  E_AT,              // update expires at
 			U_AT:  0,                 // intialize with an empty time object
 		}
 		log.Println(ipaddr+" added key:", Keyname)

@@ -19,5 +19,6 @@ func init() {
 		Value: "bar",             //initalize with a value
 		C_AT:  time.Now().Unix(), // intialize with an empty time object
 		U_AT:  0,                 // intialize with an empty time object
+		E_AT:  0,                 // expired at
 	}
 }

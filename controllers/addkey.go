@@ -10,9 +10,10 @@ import (
 	"github.com/LavHinsu/gokvstore/keystore"
 )
 
-type key_struct struct {
+type key_struct struct { // used for both adding and expiring keys
 	Keyname string
 	Value   string
+	E_AT    int64
 }
 
 // this function is used to add a key to our map/kvstore
@@ -31,7 +32,7 @@ func PostKeyController(w http.ResponseWriter, req *http.Request) {
 			http.Error(w, "bad request, couldn't parse json", http.StatusBadRequest)
 			return // exit the function here if json parsing couldn't be completed
 		}
-		status := keystore.Addkey(kvpair.Keyname, kvpair.Value, ipaddr)
+		status := keystore.Addkey(kvpair.Keyname, kvpair.Value, kvpair.E_AT, ipaddr)
 
 		if status == 200 {
 			w.WriteHeader(http.StatusOK)

@@ -4,6 +4,7 @@ type keyStoreMap struct {
 	Value string // value of the key
 	C_AT  int64  // created_at field (int64 because unix)
 	U_AT  int64  // updated_at field (int64 because unix)
+	E_AT  int64
 }
 
 type HealthCheckStruct struct {

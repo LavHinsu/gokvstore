@@ -18,6 +18,8 @@ func Kvstoreserver() {
 
 	err := http.ListenAndServe("localhost:8080", mux)
 	if err != nil {
-		log.Println("unable to start server,", err)
+		log.Panic("unable to start server,", err)
+	} else {
+		log.Println("started server on port 8080")
 	}
 }
