@@ -27,7 +27,7 @@ func UpdateKeyController(w http.ResponseWriter, req *http.Request) {
 			http.Error(w, "bad request, couldn't parse json", http.StatusBadRequest)
 			return // exit the function here if json parsing couldn't be completed
 		}
-		// update our key. the status will say if it was successfull or not.
+		// update our key. the status will say if it was successful or not.
 		status := keystore.UpdateKey(kvpair.Keyname, kvpair.Value, kvpair.E_AT, ipaddr)
 
 		// check how the operation went and respond accordingly.

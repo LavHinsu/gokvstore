@@ -34,7 +34,7 @@ func PostKeyController(w http.ResponseWriter, req *http.Request) {
 			http.Error(w, "bad request, couldn't parse json", http.StatusBadRequest)
 			return // exit the function here if json parsing couldn't be completed
 		}
-		// add our key. the status will say if it was successfull or not.
+		// add our key. the status will say if it was successful or not.
 		status := keystore.Addkey(kvpair.Keyname, kvpair.Value, kvpair.E_AT, ipaddr)
 
 		// check how the operation went and respond accordingly.

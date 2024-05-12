@@ -7,7 +7,7 @@ import (
 
 func deleteExpiredKeys() {
 	keysToExpire := getKeysThatExpire() //
-	if len(keysToExpire) > 0 {          // only call the delete if there are keys to delete. saves unneccesary mutex locks
+	if len(keysToExpire) > 0 {          // only call the delete if there are keys to delete. saves unnecessary mutex locks
 		removeKeys(keysToExpire)
 	}
 
@@ -46,7 +46,7 @@ func removeKeys(keys []string) {
 		log.Println("reaper delete expired key:", key)
 		/*
 			delete the key from our map. we don't need to worry about concurrent delete (ie, if someone sent a delete request)
-			because in golang a delete operation over a non-existant key is just a no-op.
+			because in golang a delete operation over a non-existent key is just a no-op.
 		*/
 		delete(keyStore, key)
 	}
