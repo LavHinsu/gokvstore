@@ -1,6 +1,7 @@
 package keystore
 
 import (
+	"log"
 	"sync"
 	"time"
 )
@@ -22,4 +23,5 @@ func init() {
 		U_AT:  0,                      // intialize with an empty time object
 		E_AT:  time.Now().Unix() + 10, // expire foo in 10 seconds
 	}
+	log.Println("intitalized kvstore")
 }

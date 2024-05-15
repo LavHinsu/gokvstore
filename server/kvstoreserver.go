@@ -3,12 +3,13 @@ package kvstoreserver
 import (
 	"log"
 	"net/http"
+	"strconv"
 
 	"github.com/LavHinsu/gokvstore/controllers"
 )
 
 // start our server
-func Kvstoreserver() {
+func Kvstoreserver(port int) {
 	mux := http.NewServeMux()
 	mux.HandleFunc("GET /healthcheck", controllers.HealthCheck)                // healthcheck for a probe if this is run in kubernetes
 	mux.HandleFunc("GET /key/{key}", controllers.GetKeyController)             // get a key
@@ -16,10 +17,10 @@ func Kvstoreserver() {
 	mux.HandleFunc("PATCH /updatekey", controllers.UpdateKeyController)        // update a key
 	mux.HandleFunc("DELETE /deletekey/{key}", controllers.DeleteKeyController) // delete a key
 
-	err := http.ListenAndServe("localhost:8080", mux)
+	serve := "localhost:" + strconv.Itoa(port)
+
+	err := http.ListenAndServe(serve, mux)
 	if err != nil {
-		log.Panic("unable to start server,", err)
-	} else {
-		log.Println("started server on port 8080")
+		log.Fatal("failed to start server, ", err)
 	}
 }

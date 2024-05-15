@@ -1,7 +1,14 @@
 package main
 
-import kvstoreserver "github.com/LavHinsu/gokvstore/server"
+import (
+	"flag"
+
+	kvstoreserver "github.com/LavHinsu/gokvstore/server"
+)
 
 func main() {
-	kvstoreserver.Kvstoreserver()
+	port := flag.Int("port", 8080, "specify port for the server to listen on")
+
+	flag.Parse()
+	kvstoreserver.Kvstoreserver(*port)
 }
