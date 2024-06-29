@@ -1,21 +1,15 @@
-# syntax=docker/dockerfile:1
+FROM golang:alpine AS builder
 
-FROM alpine:latest
+WORKDIR /app 
 
-# Set destination for COPY
-WORKDIR /gokvstore
+COPY . .
 
+RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -ldflags="-w -s" .
 
-# Copy the source code. Note the slash at the end, as explained in
-# https://docs.docker.com/reference/dockerfile/#copy
-COPY gokvstore ./
+FROM scratch
 
-# Optional:
-# To bind to a TCP port, runtime parameters must be supplied to the docker command.
-# But we can document in the Dockerfile what ports
-# the application is going to listen on by default.
-# https://docs.docker.com/reference/dockerfile/#expose
-EXPOSE 8080/tcp
+WORKDIR /app
 
-# Run
-CMD ["./gokvstore"]
+COPY --from=builder /app/gokvstore /usr/bin/
+
+ENTRYPOINT ["gokvstore"]
