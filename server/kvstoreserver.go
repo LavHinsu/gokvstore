@@ -17,7 +17,7 @@ func Kvstoreserver(port int) {
 	mux.HandleFunc("PATCH /updatekey", controllers.UpdateKeyController)        // update a key
 	mux.HandleFunc("DELETE /deletekey/{key}", controllers.DeleteKeyController) // delete a key
 
-	serve := "localhost:" + strconv.Itoa(port)
+	serve := "0.0.0.0:" + strconv.Itoa(port)
 
 	err := http.ListenAndServe(serve, mux)
 	if err != nil {
